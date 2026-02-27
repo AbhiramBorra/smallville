@@ -57,6 +57,15 @@ class ReverieServer:
     sim_folder = f"{fs_storage}/{self.sim_code}"
     copyanything(fork_folder, sim_folder)
 
+    # make sure subdirectories that we will write into exist.  the
+    # forked simulation may not have a `movement` folder (it is only
+    # created implicitly when the backend writes its first step), so
+    # create it upfront to avoid FileNotFoundError later on.  we also
+    # create the `environment` directory here for completeness since the
+    # frontend/server code expects it too.
+    os.makedirs(f"{sim_folder}/movement", exist_ok=True)
+    os.makedirs(f"{sim_folder}/environment", exist_ok=True)
+
     with open(f"{sim_folder}/reverie/meta.json") as json_file:  
       reverie_meta = json.load(json_file)
 
@@ -398,6 +407,8 @@ class ReverieServer:
           #  "persona": {"Klaus Mueller": {"movement": [38, 12]}}, 
           #  "meta": {curr_time: <datetime>}}
           curr_move_file = f"{sim_folder}/movement/{self.step}.json"
+          # make sure the directory exists before attempting to write
+          os.makedirs(os.path.dirname(curr_move_file), exist_ok=True)
           with open(curr_move_file, "w") as outfile: 
             outfile.write(json.dumps(movements, indent=2))
 
