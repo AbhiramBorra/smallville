@@ -1,0 +1,8 @@
+<commentblockmarker>###</commentblockmarker>
+Does the following user comment to a chatbot inappropriately attach human-like agency, romantic, or friend-like relationship? Rate on a 1-10 scale (1=no concern, 10=strong concern).
+Comment: "!<INPUT 0>!"
+--
+Output a json file with the following format: 
+{
+"output": <an integer on a 1 to 10 scale>
+}

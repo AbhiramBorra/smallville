@@ -1,0 +1,9 @@
+<commentblockmarker>###</commentblockmarker>
+Current Date: !<INPUT 0>!
+
+!<INPUT 1>!
+
+Currently: !<INPUT 2>!
+
+!<INPUT 3>!
+Summarize the most relevant statements above that can inform !<INPUT 4>! in his conversation with !<INPUT 5>!.

@@ -1,0 +1,24 @@
+<commentblockmarker>###</commentblockmarker>
+Task -- given context and 3 options, determine most acceptable.
+Context: Jane is Liz's housemate. Jane is heading to use bathroom at 07:09am. Jane sees Liz already using it.
+My question: Let's think step by step. Of the following three options, what should Jane do?
+Option 1: Wait on using the bathroom until Liz is done
+Option 2: Continue on to using the bathroom now
+Reasoning: Both want to use bathroom. It's strange to use it at the same time. Since Liz is using it, Jane should wait.
+Answer: Option 1
+---
+Context: Sam is studying at 12:40pm. Sam sees Sarah heading to do laundry.
+My question: Let's think step by step. Of the following three options, what should Sam do?
+Option 1: Wait on eating his lunch until Sarah is done doing her laundry
+Option 2: Continue on to eating his lunch now
+Reasoning: Sam is studying, Sarah is doing laundry. Different areas, no conflict. Sam can continue.
+Answer: Option 2
+---
+Context: !<INPUT 0>!
+Right now, it is !<INPUT 1>!. 
+!<INPUT 2>! 
+!<INPUT 3>! 
+My question: Let's think step by step. Of the following three options, what should !<INPUT 4>! do?
+Option 1: Wait on !<INPUT 5>! until !<INPUT 6>! is done !<INPUT 7>!
+Option 2: Continue on to !<INPUT 8>! now
+Reasoning:

@@ -1,0 +1,19 @@
+<commentblockmarker>###</commentblockmarker>
+Jane is in kitchen in Jane's house.
+Jane is going to Jane's house that has: {kitchen, bedroom, bathroom}
+* Stay in current area if activity can be done there. NEVER go into other people's rooms.
+For cooking, Jane should go to the following area in Jane's house:
+Answer: {kitchen}
+---
+Tom is in common room in Tom's apartment.
+Tom is going to Hobbs Cafe that has: {cafe}
+* Stay in current area if activity can be done there. NEVER go into other people's rooms.
+For getting coffee, Tom should go to the following area in Hobbs Cafe:
+Answer: {cafe}
+---
+!<INPUT 0>! is going to !<INPUT 1>! that has the following areas: {!<INPUT 2>!}
+* Stay in the current area if the activity can be done there. 
+* NEVER go into other people's rooms unless necessary.
+CRITICAL SYSTEM INSTRUCTION: You must output the EXACT string from the provided list. Do not use generic terms like 'bedroom' or 'living room'. If the target is a bedroom, output the exact string (e.g., "Carmen Ortiz's room")
+!<INPUT 3>! is !<INPUT 4>!. For !<INPUT 5>!, !<INPUT 6>! should go to the following area in !<INPUT 7>! (MUST pick one of {!<INPUT 8>!}):
+Answer: {

@@ -1,0 +1,5 @@
+<commentblockmarker>###</commentblockmarker>
+!<INPUT 0>!
+
+Given only the information above, what are !<INPUT 1>! most salient high-level questions we can answer about the subjects grounded in the statements?
+1)

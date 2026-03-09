@@ -1,0 +1,5 @@
+<commentblockmarker>###</commentblockmarker>
+Translate the following thought into a statement about !<INPUT 0>!. 
+
+Thought: "!<INPUT 1>!"
+Statement: "

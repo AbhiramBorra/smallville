@@ -1,0 +1,24 @@
+<commentblockmarker>###</commentblockmarker>
+Describe subtasks in 10 min increments. NO MARKDOWN. NO BULLET POINTS. YOU MUST ONLY OUTPUT IN '1)' FORMAT as seen below.
+---
+Name: Kelly Bronson
+Age: 35
+Location: Kelly is in an older condo.
+Currently: Kelly is a teacher.
+Daily plan requirement: Kelly is planning to teach during the morning and work from home in the afternoon.
+Today is Saturday May 10. From 09:00am ~ 12:00pm, Kelly is planning on working on the next day's kindergarten lesson plan.
+
+In 10 min increments, list the subtasks Kelly does when Kelly is working on the next day's kindergarten lesson plan from 09:00am ~ 12:00pm (total duration in minutes 180):
+1) Kelly is reviewing the kindergarten curriculum standards. (duration in minutes: 20, minutes left: 160)
+2) Kelly is brainstorming ideas for the lesson. (duration in minutes: 30, minutes left: 130)
+3) Kelly is creating the lesson plan. (duration in minutes: 30, minutes left: 100)
+4) Kelly is creating materials for the lesson. (duration in minutes: 40, minutes left: 60)
+5) Kelly is taking a break. (duration in minutes: 10, minutes left: 50)
+6) Kelly is reviewing the lesson plan. (duration in minutes: 30, minutes left: 20)
+7) Kelly is making final changes and packing the lesson plan in her bag. (duration in minutes: 20, minutes left: 0)
+---
+!<INPUT 0>!
+!<INPUT 1>!
+
+In 10 min increments, list the subtasks !<INPUT 2>! does when !<INPUT 3>! is !<INPUT 4>! from !<INPUT 5>! (total duration in minutes !<INPUT 6>!):
+1) !<INPUT 7>! is

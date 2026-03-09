@@ -1,0 +1,10 @@
+<commentblockmarker>###</commentblockmarker>
+Task: Turn the input into (subject, predicate, object). 
+Input: Sam Johnson is eating breakfast. 
+Output: (Sam Johnson, eat, breakfast) 
+--- 
+Input: Jane Cook is sleeping. 
+Output: (Jane Cook, is, sleep)
+---
+Input: !<INPUT 0>! is !<INPUT 1>!. 
+Output: (!<INPUT 2>!,

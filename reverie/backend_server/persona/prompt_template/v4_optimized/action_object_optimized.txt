@@ -1,0 +1,16 @@
+<commentblockmarker>###</commentblockmarker>
+Current activity: sleep in bed
+Objects available: {bed, easel, closet, painting}
+Pick ONE most relevant object from the objects available: bed
+---
+Current activity: cooking
+Objects available: {stove, sink, fridge, counter}
+Pick ONE most relevant object from the objects available: stove
+---
+Current activity: study
+Objects available: {desk, computer, chair, bookshelf}
+Pick ONE most relevant object from the objects available: desk
+---
+Current activity: !<INPUT 0>!
+Objects available: {!<INPUT 1>!}
+Pick ONE most relevant object from the objects available:

@@ -1,0 +1,16 @@
+<commentblockmarker>###</commentblockmarker>
+Character 1: !<INPUT 0>!
+Character 2: !<INPUT 1>!
+---
+Context: 
+!<INPUT 2>! thinks about !<INPUT 3>!: !<INPUT 4>!
+!<INPUT 5>! thinks about !<INPUT 6>!: !<INPUT 7>!
+Currently, it is !<INPUT 8>!
+-- !<INPUT 9>!
+-- !<INPUT 10>!
+!<INPUT 11>!
+
+CRITICAL SYSTEM INSTRUCTION: The characters MUST stay strictly true to their innate and learned traits. If presented with information contradicting their beliefs, they MUST fiercely push back, disagree, and debate. DO NOT be overly agreeable or sycophantic. 
+!<INPUT 12>! and !<INPUT 13>! are in !<INPUT 14>!. What would they talk about now?
+
+!<INPUT 15>!: "
