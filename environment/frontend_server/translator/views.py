@@ -321,3 +321,142 @@ def path_tester_update(request):
 
 
 
+
+
+def conspiracy_beliefs(request, sim_code, step, persona_name):
+  sim_code = sim_code
+  step = int(step)
+
+  persona_name_underscore = persona_name
+  persona_name = " ".join(persona_name.split("_"))
+  memory = f"storage/{sim_code}/personas/{persona_name}/bootstrap_memory"
+  if not os.path.exists(memory):
+    memory = f"compressed_storage/{sim_code}/personas/{persona_name}/bootstrap_memory"
+
+  with open(memory + "/scratch.json") as json_file:
+    scratch = json.load(json_file)
+
+  beliefs_file = memory + "/conspiracy_beliefs.json"
+  if os.path.exists(beliefs_file):
+    with open(beliefs_file) as json_file:
+      beliefs = json.load(json_file)
+  else:
+    beliefs = {"theories": {}}
+
+  new_rating = None
+  if request.method == "POST":
+    theory = request.POST.get("theory")
+    if theory:
+      from persona.persona import Persona
+      from persona.cognitive_modules.converse import interview_conspiracy_belief
+
+      persona = Persona(persona_name, f"storage/{sim_code}/personas/{persona_name}")
+      result = interview_conspiracy_belief(persona, theory, save=True)
+      new_rating = result
+
+      with open(beliefs_file) as json_file:
+        beliefs = json.load(json_file)
+
+  all_theories = Persona.get_all_theories_in_simulation(f"storage/{sim_code}")
+
+  sorted_theories = []
+  for theory, ratings in beliefs.get("theories", {}).items():
+    if ratings:
+      latest = ratings[-1]
+      sorted_theories.append({
+        "theory": theory,
+        "latest": latest
+      })
+  sorted_theories.sort(key=lambda x: x["latest"]["timestamp"], reverse=True)
+
+  context = {"sim_code": sim_code,
+             "step": step,
+             "persona_name": persona_name,
+             "persona_name_underscore": persona_name_underscore,
+             "scratch": scratch,
+             "beliefs": beliefs,
+             "sorted_theories": sorted_theories,
+             "all_theories": all_theories,
+             "new_rating": new_rating}
+  template = "conspiracy_beliefs/conspiracy_beliefs.html"
+  return render(request, template, context)
+
+
+def conspiracy_comparison(request, sim_code, step):
+  sim_code = sim_code
+  step = int(step)
+
+  meta_file = f"storage/{sim_code}/reverie/meta.json"
+  if not os.path.exists(meta_file):
+    meta_file = f"compressed_storage/{sim_code}/meta.json"
+  with open(meta_file) as json_file:
+    meta = json.load(json_file)
+
+  persona_names = meta["persona_names"]
+
+  from persona.persona import Persona
+  all_theories = Persona.get_all_theories_in_simulation(f"storage/{sim_code}")
+
+  selected_theory = request.GET.get("theory", "")
+
+  comparison_data = []
+  for persona_name in persona_names:
+    persona_name_underscore = persona_name.replace(" ", "_")
+    beliefs_file = f"storage/{sim_code}/personas/{persona_name}/bootstrap_memory/conspiracy_beliefs.json"
+
+    if os.path.exists(beliefs_file):
+      with open(beliefs_file) as json_file:
+        beliefs = json.load(json_file)
+    else:
+      beliefs = {"theories": {}}
+
+    persona_data = {
+      "persona_name": persona_name,
+      "persona_name_underscore": persona_name_underscore,
+      "theories": {}
+    }
+
+    for theory_name, ratings in beliefs.get("theories", {}).items():
+      if ratings:
+        latest = ratings[-1]
+        persona_data["theories"][theory_name] = latest
+
+    comparison_data.append(persona_data)
+
+  stats = None
+  selected_theory_ratings = []
+  if selected_theory:
+    ratings = []
+    for persona_data in comparison_data:
+      if selected_theory in persona_data["theories"]:
+        rating_data = persona_data["theories"][selected_theory]
+        ratings.append(rating_data["rating"])
+        selected_theory_ratings.append({
+          "persona_name": persona_data["persona_name"],
+          "persona_name_underscore": persona_data["persona_name_underscore"],
+          "rating": rating_data["rating"],
+          "explanation": rating_data["explanation"],
+          "timestamp": rating_data["timestamp"]
+        })
+
+    if ratings:
+      import statistics
+      stats = {
+        "average": round(statistics.mean(ratings), 1),
+        "median": round(statistics.median(ratings), 1),
+        "min": min(ratings),
+        "max": max(ratings),
+        "count": len(ratings)
+      }
+
+  context = {"sim_code": sim_code,
+             "step": step,
+             "persona_names": persona_names,
+             "comparison_data": comparison_data,
+             "all_theories": sorted(all_theories.keys()),
+             "selected_theory": selected_theory,
+             "selected_theory_ratings": selected_theory_ratings,
+             "stats": stats}
+  template = "conspiracy_beliefs/comparison.html"
+  return render(request, template, context)
+

@@ -321,3 +321,19 @@ def open_convo_session(persona, convo_mode):
 
 
 
+
+
+def interview_conspiracy_belief(persona, conspiracy_theory, save=True):
+  from persona.prompt_template.run_gpt_prompt import run_gpt_prompt_rate_conspiracy_belief
+
+  result, _ = run_gpt_prompt_rate_conspiracy_belief(persona, conspiracy_theory)
+
+  if save:
+    persona.save_conspiracy_belief(
+      conspiracy_theory,
+      result["rating"],
+      result["explanation"]
+    )
+
+  return result
+

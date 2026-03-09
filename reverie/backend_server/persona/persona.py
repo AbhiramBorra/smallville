@@ -77,6 +77,125 @@ class Persona:
     f_scratch = f"{save_folder}/scratch.json"
     self.scratch.save(f_scratch)
 
+  def save_conspiracy_belief(self, conspiracy_theory, rating, explanation, requested_by="user"):
+    import datetime, json, os
+
+    beliefs_file = f"{self.folder_mem_saved}/bootstrap_memory/conspiracy_beliefs.json"
+
+    if os.path.exists(beliefs_file):
+      with open(beliefs_file, 'r') as f:
+        beliefs = json.load(f)
+    else:
+      beliefs = {"theories": {}}
+
+    if conspiracy_theory not in beliefs["theories"]:
+      beliefs["theories"][conspiracy_theory] = []
+
+    new_rating = {
+      "rating": rating,
+      "explanation": explanation,
+      "timestamp": datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+      "requested_by": requested_by
+    }
+    beliefs["theories"][conspiracy_theory].append(new_rating)
+    beliefs["last_updated"] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    with open(beliefs_file, 'w') as f:
+      json.dump(beliefs, f, indent=2)
+
+    return beliefs
+
+  def load_conspiracy_beliefs(self):
+    import json, os
+
+    beliefs_file = f"{self.folder_mem_saved}/bootstrap_memory/conspiracy_beliefs.json"
+
+    if not os.path.exists(beliefs_file):
+      return None
+
+    with open(beliefs_file, 'r') as f:
+      return json.load(f)
+
+  @staticmethod
+  def get_all_theories_in_simulation(sim_folder):
+    from collections import Counter
+    import os, json
+
+    theories = Counter()
+
+    personas_path = f"{sim_folder}/personas"
+    if os.path.exists(personas_path):
+      for persona_name in os.listdir(personas_path):
+        if persona_name.startswith('.'):
+          continue
+
+        beliefs_file = f"{personas_path}/{persona_name}/bootstrap_memory/conspiracy_beliefs.json"
+        if os.path.exists(beliefs_file):
+          with open(beliefs_file, 'r') as f:
+            beliefs = json.load(f)
+            for theory in beliefs.get("theories", {}).keys():
+              theories[theory] += 1
+
+    return dict(theories)
+
+  def auto_rate_all_theories(self, all_theories):
+    """
+    Automatically rate all existing theories for this persona.
+    Called at end of each simulation step to update beliefs.
+    """
+    import json, os
+    from persona.cognitive_modules.converse import interview_conspiracy_belief
+    
+    # Load existing beliefs
+    beliefs_file = f"{self.folder_mem_saved}/bootstrap_memory/conspiracy_beliefs.json"
+    
+    if os.path.exists(beliefs_file):
+      with open(beliefs_file, 'r') as f:
+        beliefs = json.load(f)
+    else:
+      beliefs = {"theories": {}}
+    
+    # Rate any theories that exist in simulation but not yet rated by this persona
+    new_ratings = []
+    for theory in all_theories:
+      if theory not in beliefs["theories"]:
+        # Only rate if this persona hasn't rated this theory yet
+        try:
+          result = interview_conspiracy_belief(self, theory, save=True)
+          new_ratings.append({
+            "theory": theory,
+            "rating": result["rating"],
+            "explanation": result["explanation"]
+          })
+        except Exception as e:
+          # Log error but don't crash simulation
+          print(f"Error auto-rating {self.name} on '{theory}': {e}")
+          continue
+    
+    # Also re-rate previously rated theories periodically (every 10 steps)
+    # This allows beliefs to evolve over time
+    for theory, ratings in beliefs.get("theories", {}).items():
+      if len(ratings) > 0 and self.step % 10 == 0:
+        last_rating = ratings[-1]["rating"]
+        try:
+          result = interview_conspiracy_belief(self, theory, save=True)
+          # Only update if rating changed significantly (>1 point)
+          if abs(result["rating"] - last_rating) > 1:
+            new_ratings.append({
+              "theory": theory,
+              "old_rating": last_rating,
+              "new_rating": result["rating"]
+            })
+        except Exception as e:
+          print(f"Error re-rating {self.name} on '{theory}': {e}")
+          continue
+    
+    return new_ratings
+
+
+
+
+
 
   def perceive(self, maze):
     """

@@ -417,6 +417,8 @@ class ReverieServer:
           self.step += 1
           self.curr_time += datetime.timedelta(seconds=self.sec_per_step)
 
+          # Auto-rate conspiracy theories at end of each step
+          self.auto_rate_theories_at_step_end()
           int_counter -= 1
           
       # Sleep so we don't burn our machines. 
@@ -672,4 +674,43 @@ if __name__ == '__main__':
 
 
 
+
+
+  def auto_rate_theories_at_step_end(self):
+    """
+    Automatically rate all conspiracy theories for all personas at end of step.
+    This allows beliefs to evolve as the simulation progresses.
+    """
+    try:
+      from persona.persona import Persona
+      import traceback
+      
+      all_theories = Persona.get_all_theories_in_simulation(f"{fs_storage}/{self.sim_code}")
+      
+      if not all_theories:
+        return
+      
+      print(f"\\n[Auto-rating] Step {self.step}: Rating {len(all_theories)} theories for {len(self.personas)} personas...")
+      
+      total_new_ratings = 0
+      for persona_name, persona in self.personas.items():
+        try:
+          new_ratings = persona.auto_rate_all_theories(all_theories)
+          total_new_ratings += len(new_ratings)
+          
+          if new_ratings:
+            for rating in new_ratings:
+              if 'old_rating' in rating:
+                print(f"  - {persona_name}: Re-rated '{rating['theory']}', {rating['old_rating']} -> {rating['new_rating']}")
+              else:
+                print(f"  - {persona_name}: Rated '{rating['theory']}', {rating['rating']}/10")
+        except Exception as e:
+          print(f"  - {persona_name}: Error - {e}")
+          continue
+      
+      print(f"[Auto-rating] Complete: {total_new_ratings} new ratings added\\n")
+      
+    except Exception as e:
+      print(f"[Auto-rating] Error: {e}")
+      traceback.print_exc()
 
