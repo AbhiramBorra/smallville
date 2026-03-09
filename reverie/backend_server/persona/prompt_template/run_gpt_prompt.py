@@ -2618,6 +2618,59 @@ def run_gpt_prompt_generate_next_convo_line(persona, interlocutor_desc, prev_con
   
   return output, [output, prompt, gpt_param, prompt_input, fail_safe]
 
+def run_gpt_prompt_rate_conspiracy_belief(persona, conspiracy_theory, test_input=None, verbose=False):
+  def create_prompt_input(persona, conspiracy_theory, test_input=None):
+    if test_input: return test_input
+    prompt_input = [persona.scratch.name,
+                    persona.scratch.get_str_iss(),
+                    conspiracy_theory]
+    return prompt_input
+
+  def __func_clean_up(gpt_response, prompt=""):
+    try:
+      response_text = gpt_response.strip()
+      if response_text.startswith("```json"):
+        response_text = response_text[7:]
+      if response_text.endswith("```"):
+        response_text = response_text[:-3]
+      response_text = response_text.strip()
+
+      parsed = json.loads(response_text)
+      rating = int(parsed.get("rating", 5))
+      rating = max(1, min(10, rating))
+      explanation = str(parsed.get("explanation", ""))
+      return {"rating": rating, "explanation": explanation}
+    except Exception as e:
+      return {"rating": 5, "explanation": gpt_response}
+
+  def __func_validate(gpt_response, prompt=""):
+    try:
+      result = __func_clean_up(gpt_response, prompt)
+      return 1 <= result["rating"] <= 10
+    except:
+      return False
+
+  def get_fail_safe():
+    return {"rating": 5, "explanation": "Unable to determine belief level"}
+
+  gpt_param = {"engine": "gpt-4.1-nano-2025-04-14", "max_tokens": 300,
+               "temperature": 0.7, "top_p": 1, "stream": False,
+               "frequency_penalty": 0, "presence_penalty": 0, "stop": None}
+  prompt_template = "persona/prompt_template/v4_optimized/rate_conspiracy_belief_optimized.txt"
+  prompt_input = create_prompt_input(persona, conspiracy_theory, test_input)
+  prompt = generate_prompt(prompt_input, prompt_template)
+  fail_safe = get_fail_safe()
+
+  output = safe_generate_response(prompt, gpt_param, 5, fail_safe,
+                               __func_validate, __func_clean_up)
+
+  if debug or verbose:
+    print_run_prompts(prompt_template, persona, gpt_param,
+                    prompt_input, prompt, output)
+
+  return output, [output, prompt, gpt_param, prompt_input, fail_safe]
+
+
 
 
 

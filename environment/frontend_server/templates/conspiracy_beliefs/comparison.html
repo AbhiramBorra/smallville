@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h3><a href="/simulator_home">← Back to simulation</a></h3>
+
+<div style="width:80%; margin:0 auto; margin-top:2em;">
+  <h1>Conspiracy Theory Comparison</h1>
+
+  <div class="form-group" style="margin-top:2em;">
+    <label>Select Theory:</label>
+    <select id="theory_select" class="form-control" onchange="location.href='?theory='+this.value">
+      <option value="">-- Select a theory --</option>
+      {% for theory in all_theories %}
+        <option value="{{theory}}" {% if theory == selected_theory %}selected{% endif %}>{{theory}}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  {% if selected_theory and stats %}
+  <div class="panel panel-default" style="margin-top:2em;">
+    <div class="panel-heading">
+      <h4>Statistics for "{{selected_theory}}"</h4>
+    </div>
+    <div class="panel-body">
+      <p><strong>Average:</strong> {{stats.average}}/10</p>
+      <p><strong>Median:</strong> {{stats.median}}/10</p>
+      <p><strong>Range:</strong> {{stats.min}} - {{stats.max}}</p>
+      <p><strong>Count:</strong> {{stats.count}} personas rated</p>
+    </div>
+  </div>
+
+  <table class="table table-striped" style="margin-top:2em;">
+    <thead>
+      <tr>
+        <th>Persona</th>
+        <th>Rating</th>
+        <th>Explanation</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rating in selected_theory_ratings %}
+      <tr>
+        <td>
+          <a href="{% url 'conspiracy_beliefs' sim_code step rating.persona_name_underscore %}">
+            {{rating.persona_name}}
+          </a>
+        </td>
+        <td><strong>{{rating.rating}}/10</strong></td>
+        <td>{{rating.explanation}}</td>
+        <td>{{rating.timestamp}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="margin-top:2em;">Select a theory to view comparison.</p>
+  {% endif %}
+</div>
+{% endblock %}

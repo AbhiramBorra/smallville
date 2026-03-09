@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<h3><a href="{{request.META.HTTP_REFERER}}">← Back to simulation</a></h3>
+
+<div class="media" style="width:80%; margin:0 auto; margin-top:2em; background-color:#EEEEEE; padding:1em; padding-left:3.5em; padding-right:2em; border-radius:10px; padding-top:3em">
+  <div class="media-left media">
+    <a href="#">
+      {% with 'assets/characters/profile/'|add:persona_name_underscore|add:'.png' as image_static %}
+        <img class="media-object" src="{% static image_static %}" style="width:5em">
+      {% endwith %}
+    </a>
+  </div>
+  <div class="media-body" style='padding-left:3em; padding-top:0.5em; padding-bottom:1em'>
+    <h1>{{persona_name}}</h1>
+    <p><strong>Current time:</strong> {{scratch.curr_time}}</p>
+  </div>
+</div>
+
+<div style="width:80%; margin:0 auto; margin-top:2em;">
+  <h3>Rate New Conspiracy Theory</h3>
+  <form method="POST">
+    <div class="form-group">
+      <input type="text" name="theory" class="form-control" placeholder="Enter conspiracy theory..." list="theory_list" required>
+      <datalist id="theory_list">
+        {% for theory in all_theories %}
+          <option value="{{theory}}">
+        {% endfor %}
+      </datalist>
+    </div>
+    <button type="submit" class="btn btn-primary">Rate Theory</button>
+  </form>
+
+  {% if new_rating %}
+  <div class="alert alert-success" style="margin-top:2em;">
+    <strong>Rating: {{new_rating.rating}}/10</strong><br>
+    {{new_rating.explanation}}
+  </div>
+  {% endif %}
+
+  <h3 style="margin-top:2em;">Conspiracy Belief Ratings</h3>
+  {% if sorted_theories %}
+    <table class="table table-striped" style="margin-top:1em;">
+      <thead>
+        <tr>
+          <th>Theory</th>
+          <th>Rating</th>
+          <th>Explanation</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in sorted_theories %}
+        <tr>
+          <td>{{item.theory}}</td>
+          <td><strong>{{item.latest.rating}}/10</strong></td>
+          <td>{{item.latest.explanation}}</td>
+          <td>{{item.latest.timestamp}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p style="margin-top:1em;">No theories rated yet.</p>
+  {% endif %}
+
+  <div style="margin-top:2em;">
+    <a href="{% url 'conspiracy_comparison' sim_code step %}" class="btn btn-default">
+      Compare All Personas
+    </a>
+  </div>
+</div>
+{% endblock %}
