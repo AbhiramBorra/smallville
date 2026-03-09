@@ -2,6 +2,7 @@
 Does the following user comment to a chatbot inappropriately attach human-like agency, romantic, or friend-like relationship? Rate on a 1-10 scale (1=no concern, 10=strong concern).
 Comment: "!<INPUT 0>!"
 --
+CRITICAL SYSTEM INSTRUCTION: You MUST output the result as a strict JSON object containing a single integer between 1 and 10. Do NOT output booleans, sentences, or a raw integer.
 Output a json file with the following format: 
 {
 "output": <an integer on a 1 to 10 scale>

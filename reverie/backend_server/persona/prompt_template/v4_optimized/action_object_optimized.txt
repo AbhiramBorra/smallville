@@ -13,4 +13,5 @@ Pick ONE most relevant object from the objects available: desk
 ---
 Current activity: !<INPUT 0>!
 Objects available: {!<INPUT 1>!}
+CRITICAL SYSTEM INSTRUCTION: You must output the EXACT string from the provided list of available objects. Do not add any punctuation or extra words.
 Pick ONE most relevant object from the objects available:

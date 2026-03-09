@@ -2,4 +2,5 @@
 !<INPUT 0>!
 
 Given only the information above, what are !<INPUT 1>! most salient high-level questions we can answer about the subjects grounded in the statements?
+CRITICAL SYSTEM INSTRUCTION: You MUST output a strictly numbered list of exactly !<INPUT 1>! questions. DO NOT output any introductory text, concluding text, or conversational filler.
 1)

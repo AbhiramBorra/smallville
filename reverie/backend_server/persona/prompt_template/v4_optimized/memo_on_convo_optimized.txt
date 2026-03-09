@@ -4,4 +4,5 @@
 
 Write down if there is anything from the conversation that !<INPUT 1>! might have found interesting from !<INPUT 2>!'s perspective, in a full sentence. 
 
+CRITICAL SYSTEM INSTRUCTION: You MUST output ONLY a single, complete sentence. Do not add any conversational filler or multiple points.
 "!<INPUT 3>!

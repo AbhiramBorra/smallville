@@ -1,4 +1,5 @@
 <commentblockmarker>###</commentblockmarker>
 The following events/thoughts happened about "!<INPUT 0>!". 
 !<INPUT 1>!
+CRITICAL SYSTEM INSTRUCTION: You MUST output ONLY ONE single sentence in the third person. Do not add explanations or output multiple sentences.
 Here is what !<INPUT 2>! thinks about these events/thoughts in one sentence. The sentence needs to be in third person:

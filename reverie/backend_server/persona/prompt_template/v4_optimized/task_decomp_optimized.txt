@@ -17,8 +17,13 @@ In 10 min increments, list the subtasks Kelly does when Kelly is working on the 
 6) Kelly is reviewing the lesson plan. (duration in minutes: 30, minutes left: 20)
 7) Kelly is making final changes and packing the lesson plan in her bag. (duration in minutes: 20, minutes left: 0)
 ---
-!<INPUT 0>!
-!<INPUT 1>!
+Name: !<INPUT 0>!
+Age: !<INPUT 1>!
+Location: !<INPUT 2>!
+Currently: !<INPUT 3>!
+Daily plan requirement: !<INPUT 4>!
+Today is !<INPUT 5>!. From !<INPUT 6>! ~ !<INPUT 7>!, !<INPUT 0>! is planning on !<INPUT 8>!.
 
-In 10 min increments, list the subtasks !<INPUT 2>! does when !<INPUT 3>! is !<INPUT 4>! from !<INPUT 5>! (total duration in minutes !<INPUT 6>!):
-1) !<INPUT 7>! is
+In 10 min increments, list the subtasks !<INPUT 0>! does when !<INPUT 0>! is !<INPUT 8>! from !<INPUT 6>! ~ !<INPUT 7>! (total duration in minutes !<INPUT 9>!):
+CRITICAL SYSTEM INSTRUCTION: You MUST stop generating text immediately once the "minutes left" reaches 0. DO NOT generate any additional subtasks, conversational filler, or extra text.
+1) !<INPUT 0>! is

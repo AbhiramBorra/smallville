@@ -4,5 +4,5 @@
 
 Based on the statements above, summarize !<INPUT 1>! and !<INPUT 2>!'s relationship. What do they feel or know about each other?
 
-
+CRITICAL SYSTEM INSTRUCTION: You MUST provide a concise summary in one short paragraph based strictly on the provided statements.
 "

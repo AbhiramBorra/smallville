@@ -7,4 +7,5 @@ Input: Jane Cook is sleeping.
 Output: (Jane Cook, is, sleep)
 ---
 Input: !<INPUT 0>! is !<INPUT 1>!. 
+CRITICAL SYSTEM INSTRUCTION: You MUST output ONLY the predicate and object separated by a comma, followed by a closing parenthesis. DO NOT output any other text or punctuation.
 Output: (!<INPUT 2>!,

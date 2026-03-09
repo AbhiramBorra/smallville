@@ -21,4 +21,5 @@ Right now, it is !<INPUT 1>!.
 My question: Let's think step by step. Of the following three options, what should !<INPUT 4>! do?
 Option 1: Wait on !<INPUT 5>! until !<INPUT 6>! is done !<INPUT 7>!
 Option 2: Continue on to !<INPUT 8>! now
+CRITICAL SYSTEM INSTRUCTION: After providing your reasoning, you MUST end your response exactly with "Answer: Option 1" or "Answer: Option 2".
 Reasoning:

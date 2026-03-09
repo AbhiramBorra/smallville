@@ -2,4 +2,5 @@
 Input:
 !<INPUT 0>!
 What !<INPUT 1>! high-level insights can you infer from the above statements? (example format: insight (because of 1, 5, 3))
+CRITICAL SYSTEM INSTRUCTION: You MUST output a numbered list of exactly !<INPUT 1>! insights. You MUST include the numeric evidence citations in parentheses at the end of each insight e.g., "(because of 1, 3)". DO NOT output extra filler.
 1.

@@ -6,4 +6,5 @@ Current Date: !<INPUT 0>!
 Currently: !<INPUT 2>!
 
 !<INPUT 3>!
+CRITICAL SYSTEM INSTRUCTION: You MUST summarize the most relevant statements concisely in one short paragraph. Do not hallucinate extra details.
 Summarize the most relevant statements above that can inform !<INPUT 4>! in his conversation with !<INPUT 5>!.

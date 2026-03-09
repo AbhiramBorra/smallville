@@ -4,5 +4,6 @@ Hourly schedule format:
 ===
 !<INPUT 1>!
 !<INPUT 2>!
+CRITICAL SYSTEM INSTRUCTION: You MUST strictly continue the hourly schedule format. Output exactly 1 activity per hour. DO NOT hallucinate extra hours or add filler text.
 !<INPUT 3>!!<INPUT 4>!
 !<INPUT 5>!

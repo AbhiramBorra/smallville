@@ -5,5 +5,6 @@ Statements:
 An interviewer said to !<INPUT 1>!: 
 "!<INPUT 2>!"
 
+CRITICAL SYSTEM INSTRUCTION: You MUST summarize the most relevant statements in a few sentences. Do not add external information.
 Summarize the Statements that are most relevant to the interviewer's line:
 "

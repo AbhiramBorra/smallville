@@ -2,4 +2,5 @@
 !<INPUT 0>!
 
 In general, !<INPUT 1>!
+CRITICAL SYSTEM INSTRUCTION: You MUST output ONLY the time in an appropriate time format (e.g., 07:00 am). DO NOT output full sentences or conversational filler.
 !<INPUT 2>!'s wake up hour:

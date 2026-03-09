@@ -2,4 +2,5 @@
 Translate the following thought into a statement about !<INPUT 0>!. 
 
 Thought: "!<INPUT 1>!"
+CRITICAL SYSTEM INSTRUCTION: You MUST output ONLY a single, complete sentence in the third person. DO NOT add any filler text, explanations, or multiple sentences. Close the quote when finished.
 Statement: "
